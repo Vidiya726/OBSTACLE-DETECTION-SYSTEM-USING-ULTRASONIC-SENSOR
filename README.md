@@ -16,9 +16,8 @@ The ultrasonic distance sensor (HC-SR04) is a widely used electronic component f
 The speed of sound in air is approximately 343 meters per second (or 0.034 cm per microsecond). Since the sound travels to the object and back, the measured time is divided by 2. The formula used is: distance = (duration × 0.034) / 2. The sensor is highly suitable for robotics, object detection, and security systems where accurate distance measurement is crucial. The Arduino Uno serves as the brain of this project and controls the sensor, processes the pulse duration, and outputs the result via the serial monitor. 
 Tinkercad provides a simulation environment where this circuit can be virtually built, connected, and tested. Through this setup, users can analyze how the sensor interacts with different distances, and visualize its output in real-time without requiring physical components. This setup not only helps in understanding sensor interfacing but also enhances coding skills through implementation in the Arduino IDE. It is an ideal beginner project for learning microcontroller and sensor interfacing.
 
-
-
 ## Circuit Diagram:
+<img width="741" height="369" alt="Screenshot 2026-05-30 132034" src="https://github.com/user-attachments/assets/801877fe-38b7-4454-b55b-e3a0988e4cb5" />
  
 ## Procedure: //Modify the procedure based on your circuit
 
@@ -53,14 +52,33 @@ Step 7: Save Your Work
 
 
 ## Code:
-
-
+```
+#define echoPin 2
+#define trigPin 3
+long duration;
+int distance;
+void setup()
+{
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+}
+void loop()
+{
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+}
+```
 ## Output:
- 
-
+ <img width="1032" height="552" alt="Screenshot 2026-05-30 131725" src="https://github.com/user-attachments/assets/29517832-d8ca-4cae-a51d-428248d7f040" />
 
 ## Result
-
-
-Result:
 The simulation successfully measured the distance between the ultrasonic sensor  HC-SR04 and the object. The real-time distance values were accurately displayed on the serial monitor in centimeters.
